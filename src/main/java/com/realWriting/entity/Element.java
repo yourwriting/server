@@ -3,10 +3,10 @@ package com.realWriting.entity;
 import jakarta.persistence.*;
 
 @Entity
-public class FileElement {
+public class Element {
 
     @Id @GeneratedValue
-    @Column(name="file_elm_id")
+    @Column(name="element_id")
     private Long id;
 
     private String text;
@@ -15,5 +15,6 @@ public class FileElement {
     private String textColor;
 
     @OneToOne
-    private CreatedFile createdFile;
+    private Note note;
+
 }

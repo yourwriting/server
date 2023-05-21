@@ -9,10 +9,10 @@ import java.time.LocalDateTime;
 
 @Entity
 @EntityListeners(AuditingEntityListener.class)
-public class CreatedFile {
+public class Note {
 
     @Id @GeneratedValue
-    @Column(name="file_id")
+    @Column(name="note_id")
     private Long id;
 
     @CreatedDate
@@ -20,8 +20,5 @@ public class CreatedFile {
 
     @LastModifiedDate
     private LocalDateTime lastModifiedTime;
-
-    @ManyToOne
-    private User user;
 
 }

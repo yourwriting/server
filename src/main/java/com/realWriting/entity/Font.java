@@ -12,7 +12,4 @@ public class Font {
     @Column(name="font_info")
     private String fontInfo;
 
-    @OneToOne
-    private Font font;
-
 }
