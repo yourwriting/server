@@ -1,0 +1,10 @@
+spring:
+  datasource:
+    driver-class-name: org.mariadb.jdbc.Driver
+    url: jdbc:mariadb://localhost:3306/realWriting?serverTimezone=UTC&characterEncoding=UTF-8
+    username: root
+    password: 4648
+  jpa:
+    hibernate:
+      ddl-auto: create-drop
+    show-sql: true
