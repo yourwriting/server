@@ -8,6 +8,7 @@ import com.realWriting.note.application.port.out.NotePersistencePort;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
+import java.util.List;
 import java.util.Optional;
 
 import static com.realWriting.note.application.port.in.dto.CreateNoteRes.*;
@@ -34,5 +35,10 @@ public class CreateNotePersistenceAdapter implements NotePersistencePort {
     @Override
     public void delete(Long id) {
         noteRepository.deleteById(id);
+    }
+
+    @Override
+    public List<NoteJpaEntity> findAll() {
+        return noteRepository.findAll();
     }
 }
