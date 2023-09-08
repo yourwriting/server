@@ -16,10 +16,11 @@ public class NoteOutput {
         Long noteId;
         String title;
         LocalDateTime createdAt;
+        LocalDateTime updatedAt;
 
         public static List<ListOutput> of(List<NoteRes.ListRes> res) {
             return res.stream()
-                    .map(r -> new ListOutput(r.getNoteId(), r.getTitle(), r.getCreatedAt()))
+                    .map(r -> new ListOutput(r.getNoteId(), r.getTitle(), r.getCreatedAt(), r.getUpdatedAt()))
                     .collect(Collectors.toList());
         }
     }
