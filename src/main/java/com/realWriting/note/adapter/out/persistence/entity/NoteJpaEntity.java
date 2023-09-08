@@ -37,4 +37,10 @@ public class NoteJpaEntity {
 
     @LastModifiedDate
     private LocalDateTime updatedAt;
+
+    public NoteJpaEntity update(String title, String content) {
+        this.title = title;
+        this.content = content;
+        return this;
+    }
 }

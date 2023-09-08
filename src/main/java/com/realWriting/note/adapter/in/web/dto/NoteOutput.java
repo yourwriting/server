@@ -8,16 +8,19 @@ import java.time.LocalDateTime;
 import java.util.List;
 import java.util.stream.Collectors;
 
-@Data
-@AllArgsConstructor
 public class NoteOutput {
-    Long noteId;
-    String title;
-    LocalDateTime createdAt;
 
-    public static List<NoteOutput> toOutput(List<NoteRes> res) {
-        return res.stream()
-                .map(r -> new NoteOutput(r.getNoteId(), r.getTitle(), r.getCreatedAt()))
-                .collect(Collectors.toList());
+    @Data
+    @AllArgsConstructor
+    public static class ListOutput {
+        Long noteId;
+        String title;
+        LocalDateTime createdAt;
+
+        public static List<ListOutput> of(List<NoteRes.ListRes> res) {
+            return res.stream()
+                    .map(r -> new ListOutput(r.getNoteId(), r.getTitle(), r.getCreatedAt()))
+                    .collect(Collectors.toList());
+        }
     }
 }

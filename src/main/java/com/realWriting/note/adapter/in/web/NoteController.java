@@ -1,46 +1,46 @@
 package com.realWriting.note.adapter.in.web;
 
-import com.realWriting.global.success.SuccessResponse;
-import com.realWriting.note.adapter.in.web.dto.CreateNoteInput;
-import com.realWriting.note.adapter.in.web.dto.CreateNoteOutput;
 import com.realWriting.note.adapter.in.web.dto.NoteOutput;
-import com.realWriting.note.application.port.in.CreateNoteUseCase;
-import com.realWriting.note.application.port.in.DeleteNoteUseCase;
-import com.realWriting.note.application.port.in.ShowNotesUseCase;
+import com.realWriting.note.application.port.in.NoteService;
+import com.realWriting.note.application.port.in.dto.NoteRes;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 import static com.realWriting.global.success.SuccessCode.*;
-import static com.realWriting.note.adapter.in.web.dto.CreateNoteOutput.toOutput;
-import static com.realWriting.note.application.port.in.dto.CreateNoteReq.toReq;
+import static com.realWriting.global.success.SuccessResponse.toResponseEntity;
+import static com.realWriting.note.adapter.in.web.dto.NoteInput.ContentInput;
+import static com.realWriting.note.application.port.in.dto.NoteRes.ContentRes;
 
 @RestController
 @RequestMapping("/api")
 @RequiredArgsConstructor
 public class NoteController {
-    private final CreateNoteUseCase createNoteUseCase;
-    private final DeleteNoteUseCase deleteNoteUseCase;
-    private final ShowNotesUseCase showNotesUseCase;
+    private final NoteService noteService;
 
     @PostMapping("/note")
-    public SuccessResponse<CreateNoteOutput> createNote(@RequestBody CreateNoteInput createNoteInput) {
-        CreateNoteOutput output = toOutput(createNoteUseCase.createNote(toReq(createNoteInput)));
-        return new SuccessResponse(NOTE_CREATE_SUCCESS, output);
+    public ResponseEntity<?> createNote(@RequestBody ContentInput input) {
+        ContentRes output = noteService.createNote(input.toReq());
+        return toResponseEntity(NOTE_CREATE_SUCCESS, output);
     }
 
-    // TODO 수정
+    @PutMapping("/note/{noteId}")
+    public ResponseEntity<?> updateNote(@PathVariable("noteId") Long noteId, @RequestBody ContentInput input) {
+        ContentRes output = noteService.updateNote(noteId, input.toReq());
+        return toResponseEntity(NOTE_UPDATE_SUCCESS, output);
+    }
 
     @DeleteMapping("/note/{noteId}")
-    public SuccessResponse<Long> deleteNote(@PathVariable("noteId") Long noteId) {
-        deleteNoteUseCase.delete(noteId);
-        return new SuccessResponse(NOTE_DELETE_SUCCESS, noteId);
+    public ResponseEntity<?> deleteNote(@PathVariable("noteId") Long noteId) {
+        noteService.delete(noteId);
+        return toResponseEntity(NOTE_DELETE_SUCCESS, noteId);
     }
 
     @GetMapping("/home")
-    public SuccessResponse<List<NoteOutput>> showNotes() {
-        List<NoteOutput> output = NoteOutput.toOutput(showNotesUseCase.findAll());
-        return new SuccessResponse<>(SHOW_NOTES_SUCCESS, output);
+    public ResponseEntity<?> showNotes() {
+        List<NoteOutput.ListOutput> output = NoteOutput.ListOutput.of(noteService.findAll());
+        return toResponseEntity(SHOW_NOTES_SUCCESS, output);
     }
 }
