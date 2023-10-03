@@ -1,9 +1,7 @@
 package com.realWriting.note.adapter.out.persistence;
 
-import com.realWriting.note.adapter.out.persistence.entity.NoteJpaEntity;
+import com.realWriting.note.domain.Note;
 import com.realWriting.note.adapter.out.persistence.repository.NoteRepository;
-import com.realWriting.note.application.port.in.dto.NoteReq;
-import com.realWriting.note.application.port.in.dto.NoteRes;
 import com.realWriting.note.application.port.out.NotePersistencePort;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
@@ -11,25 +9,20 @@ import org.springframework.stereotype.Component;
 import java.util.List;
 import java.util.Optional;
 
-import static com.realWriting.note.application.port.in.dto.NoteReq.*;
-import static com.realWriting.note.application.port.in.dto.NoteRes.*;
+import static com.realWriting.note.application.port.out.dto.NoteRes.ContentRes;
 
 @Component
 @RequiredArgsConstructor
-public class CreateNotePersistenceAdapter implements NotePersistencePort {
+public class NotePersistenceAdapter implements NotePersistencePort {
     private final NoteRepository noteRepository;
 
     @Override
-    public ContentRes save(ContentReq req) {
-        NoteJpaEntity entity = NoteJpaEntity.builder()
-                .title(req.getTitle())
-                .content(req.getContent())
-                .build();
+    public ContentRes save(Note entity) {
         return ContentRes.of(noteRepository.save(entity));
     }
 
     @Override
-    public Optional<NoteJpaEntity> findById(Long id) {
+    public Optional<Note> findById(Long id) {
         return noteRepository.findById(id);
     }
 
@@ -39,12 +32,12 @@ public class CreateNotePersistenceAdapter implements NotePersistencePort {
     }
 
     @Override
-    public List<NoteJpaEntity> findAll() {
+    public List<Note> findAll() {
         return noteRepository.findAll();
     }
 
     @Override
-    public ContentRes update(NoteJpaEntity entity) {
+    public ContentRes update(Note entity) {
         return ContentRes.of(noteRepository.save(entity));
     }
 }

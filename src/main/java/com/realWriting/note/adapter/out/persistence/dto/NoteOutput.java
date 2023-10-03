@@ -1,6 +1,6 @@
-package com.realWriting.note.adapter.in.web.dto;
+package com.realWriting.note.adapter.out.persistence.dto;
 
-import com.realWriting.note.application.port.in.dto.NoteRes;
+import com.realWriting.note.application.port.out.dto.NoteRes;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 

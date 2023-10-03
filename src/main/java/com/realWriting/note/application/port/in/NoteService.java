@@ -1,15 +1,17 @@
 package com.realWriting.note.application.port.in;
 
-import com.realWriting.note.application.port.in.dto.NoteRes;
+import com.realWriting.note.application.port.in.dto.NoteReq;
+import com.realWriting.note.application.port.out.dto.NoteRes;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
 import java.util.List;
 
-import static com.realWriting.note.application.port.in.dto.NoteReq.ContentReq;
-import static com.realWriting.note.application.port.in.dto.NoteRes.ContentRes;
-
 public interface NoteService {
-    ContentRes createNote(ContentReq req);
-    ContentRes updateNote(Long id, ContentReq req);
-    void delete(Long id);
+    NoteRes.ContentRes saveNote(NoteReq.ContentReq req) throws Exception;
+    NoteRes.ContentRes getNote(Long id);
+    NoteRes.ContentRes updateNote(Long id, NoteReq.ContentReq req);
+    void deleteNote(Long id);
     List<NoteRes.ListRes> findAll();
+    void uploadImage(Long id, MultipartFile image) throws IOException;
 }
