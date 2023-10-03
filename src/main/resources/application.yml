@@ -1,10 +1,23 @@
 spring:
   datasource:
+#    driver-class-name: org.mariadb.jdbc.Driver
+#    url: jdbc:mariadb://real-writing-database.cfhfwm8iygtn.ap-northeast-2.rds.amazonaws.com/db?serverTimezone=UTC&characterEncoding=UTF-8
+#    username: g16rim
+#    password: kr334404
     driver-class-name: org.mariadb.jdbc.Driver
     url: jdbc:mariadb://localhost:3306/realWriting?serverTimezone=UTC&characterEncoding=UTF-8
     username: root
-    password: 4648
+    password: 1234
+#    driverClassName: org.h2.Driver
+#    url: jdbc:h2:file:C:\Users\rim\Desktop\realWriting-server\note;DB_CLOSE_ON_EXIT=FALSE
+#    username: sa
+#    password:
   jpa:
     hibernate:
-      ddl-auto: create-drop
+      ddl-auto: update
     show-sql: true
+
+  servlet:
+    multipart:
+      maxFileSize: 10MB
+      maxRequestSize: 20MB

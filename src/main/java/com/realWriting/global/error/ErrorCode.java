@@ -9,7 +9,9 @@ import static org.springframework.http.HttpStatus.*;
 public enum ErrorCode {
     SERVER_ERROR(INTERNAL_SERVER_ERROR, "00001", "서버 내부 에러"),
     /* Note */
-    NOTE_NOT_FOUND(BAD_REQUEST, "01101", "잘못된 노트 ID"),
+    NOTE_NOT_FOUND(BAD_REQUEST, "01101", "존재하지 않는 노트 ID"),
+    /* Member */
+    DUPLICATED_EMAIL(BAD_REQUEST, "01201", "이미 가입된 이메일입니다.")
     ;
 
     private final HttpStatus httpStatus;
