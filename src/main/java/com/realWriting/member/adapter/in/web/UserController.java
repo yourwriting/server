@@ -1,9 +1,9 @@
-package com.realWriting.note.adapter.in.web;
+package com.realWriting.member.adapter.in.web;
 
 import com.realWriting.global.success.SuccessResponse;
-import com.realWriting.note.adapter.in.web.dto.UserInput;
-import com.realWriting.note.application.port.in.UserService;
-import com.realWriting.note.application.port.out.dto.UserRes;
+import com.realWriting.member.adapter.in.web.dto.UserInput;
+import com.realWriting.member.application.port.in.UserService;
+import com.realWriting.member.application.port.out.dto.UserRes;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;

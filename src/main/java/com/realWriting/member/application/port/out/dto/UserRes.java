@@ -1,7 +1,6 @@
-package com.realWriting.note.application.port.out.dto;
+package com.realWriting.member.application.port.out.dto;
 
-import com.realWriting.note.domain.Note;
-import com.realWriting.note.domain.User;
+import com.realWriting.member.domain.User;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Builder;

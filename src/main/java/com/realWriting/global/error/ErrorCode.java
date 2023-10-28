@@ -11,7 +11,7 @@ public enum ErrorCode {
     /* Note */
     NOTE_NOT_FOUND(BAD_REQUEST, "01101", "존재하지 않는 노트 ID"),
     /* Member */
-    DUPLICATED_EMAIL(BAD_REQUEST, "01201", "이미 가입된 이메일입니다.")
+    DUPLICATED_LOGIN_ID(BAD_REQUEST, "01201", "이미 가입된 아이디입니다.")
     ;
 
     private final HttpStatus httpStatus;

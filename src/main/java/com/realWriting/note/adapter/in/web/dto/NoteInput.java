@@ -10,9 +10,9 @@ public class NoteInput {
     @NoArgsConstructor(access = AccessLevel.PRIVATE)
     @Getter
     public static class ContentInput {
-        @NotBlank
+        @NotBlank(message = "필수 입력 값입니다.")
         private String title;
-        @NotBlank
+        @NotBlank(message = "필수 입력 값입니다.")
         private String content;
 
         public NoteReq.ContentReq toReq() {

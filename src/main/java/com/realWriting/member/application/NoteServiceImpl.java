@@ -1,4 +1,4 @@
-package com.realWriting.note.application;
+package com.realWriting.member.application;
 
 import com.realWriting.global.error.exception.NoteException;
 import com.realWriting.note.application.port.in.NoteService;

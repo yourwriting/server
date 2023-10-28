@@ -1,7 +1,6 @@
-package com.realWriting.note.adapter.in.web.dto;
+package com.realWriting.member.adapter.in.web.dto;
 
-import com.realWriting.note.application.port.in.dto.NoteReq;
-import com.realWriting.note.application.port.in.dto.UserReq;
+import com.realWriting.member.application.port.in.dto.UserReq;
 import jakarta.validation.constraints.NotBlank;
 import lombok.*;
 
@@ -11,11 +10,11 @@ public class UserInput {
     @NoArgsConstructor(access = AccessLevel.PRIVATE)
     @Getter
     public static class SignupInput {
-        @NotBlank
+        @NotBlank(message = "필수 입력 값입니다.")
         private String loginId;
-        @NotBlank
+        @NotBlank(message = "필수 입력 값입니다.")
         private String password;
-        @NotBlank
+        @NotBlank(message = "필수 입력 값입니다.")
         private String nickname;
 
         public UserReq.SignupReq toReq() {

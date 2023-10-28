@@ -1,4 +1,4 @@
-package com.realWriting.note.application.port.in.dto;
+package com.realWriting.member.application.port.in.dto;
 
 import lombok.*;
 

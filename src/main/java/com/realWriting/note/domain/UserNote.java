@@ -1,5 +1,6 @@
 package com.realWriting.note.domain;
 
+import com.realWriting.member.domain.User;
 import jakarta.persistence.*;
 
 @Entity

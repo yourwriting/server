@@ -1,4 +1,4 @@
-package com.realWriting.note.domain;
+package com.realWriting.member.domain;
 
 import jakarta.persistence.*;
 import lombok.*;

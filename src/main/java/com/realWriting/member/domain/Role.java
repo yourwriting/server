@@ -1,4 +1,4 @@
-package com.realWriting.note.domain;
+package com.realWriting.member.domain;
 
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
