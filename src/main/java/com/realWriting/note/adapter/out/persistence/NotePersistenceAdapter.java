@@ -4,6 +4,7 @@ import com.realWriting.note.domain.Note;
 import com.realWriting.note.adapter.out.persistence.repository.NoteRepository;
 import com.realWriting.note.application.port.out.NotePersistencePort;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
@@ -33,7 +34,7 @@ public class NotePersistenceAdapter implements NotePersistencePort {
 
     @Override
     public List<Note> findAll() {
-        return noteRepository.findAll();
+        return noteRepository.findAll(Sort.by(Sort.Direction.DESC, "createdAt"));
     }
 
     @Override

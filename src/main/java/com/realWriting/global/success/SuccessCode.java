@@ -15,8 +15,8 @@ public enum SuccessCode {
     NOTE_DELETE_SUCCESS(OK, "0113", "노트 삭제 성공"),
     SHOW_NOTES_SUCCESS(OK, "0114", "모든 노트 조회 성공"),
     IMAGE_UPLOAD_SUCCESS(OK, "0115", "이미지 첨부 성공"),
-    /* Member */
-    MEMBER_SIGNUP_SUCCESS(CREATED, "0120", "회원가입 성공"),
+    /* User */
+    USER_SIGNUP_SUCCESS(CREATED, "0120", "회원가입 성공"),
     ;
 
     private final HttpStatus httpStatus;

@@ -1,10 +1,10 @@
 package com.realWriting.note.application;
 
-import com.realWriting.global.error.exception.NoteNotFoundException;
+import com.realWriting.global.error.exception.NoteException;
 import com.realWriting.note.application.port.in.NoteService;
 import com.realWriting.note.application.port.in.dto.NoteReq;
-import com.realWriting.note.application.port.out.dto.NoteRes;
 import com.realWriting.note.application.port.out.NotePersistencePort;
+import com.realWriting.note.application.port.out.dto.NoteRes;
 import com.realWriting.note.domain.Note;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -31,14 +31,14 @@ public class NoteServiceImpl implements NoteService {
     @Override
     public NoteRes.ContentRes getNote(Long id) {
         Note entity = notePersistencePort.findById(id)
-                .orElseThrow(() -> new NoteNotFoundException(NOTE_NOT_FOUND));
+                .orElseThrow(() -> new NoteException(NOTE_NOT_FOUND));
         return NoteRes.ContentRes.of(entity);
     }
 
     @Override
     public NoteRes.ContentRes updateNote(Long id, NoteReq.ContentReq req) {
         Note entity = notePersistencePort.findById(id)
-                .orElseThrow(() -> new NoteNotFoundException(NOTE_NOT_FOUND))
+                .orElseThrow(() -> new NoteException(NOTE_NOT_FOUND))
                 .update(req.getTitle(), req.getContent());
         return notePersistencePort.update(entity);
     }
@@ -46,7 +46,7 @@ public class NoteServiceImpl implements NoteService {
     @Override
     public void deleteNote(Long id) {
         notePersistencePort.findById(id)
-                        .orElseThrow(() -> new NoteNotFoundException(NOTE_NOT_FOUND));
+                        .orElseThrow(() -> new NoteException(NOTE_NOT_FOUND));
         notePersistencePort.delete(id);
     }
 

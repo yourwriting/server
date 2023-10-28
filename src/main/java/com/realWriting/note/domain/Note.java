@@ -29,8 +29,10 @@ public class Note {
     private String content;
 
     @CreatedDate
+    @Column(name = "CREATED_AT")
     private LocalDateTime createdAt;
     @LastModifiedDate
+    @Column(name = "UPDATED_AT")
     private LocalDateTime updatedAt;
 
     public Note update(String title, String content) {

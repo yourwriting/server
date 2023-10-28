@@ -3,16 +3,16 @@ package com.realWriting.note.domain;
 import jakarta.persistence.*;
 
 @Entity
-@Table(name = "MEMBER_NOTE")
-public class MemberNote {
+@Table(name = "USER_NOTE")
+public class UserNote {
     @Id
     @GeneratedValue
-    @Column(name = "MEMBER_NOTE_ID")
+    @Column(name = "USER_NOTE_ID")
     private Long id;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "MEMBER_ID")
-    private Member member;
+    @JoinColumn(name = "USER_ID")
+    private User user;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "NOTE_ID")
