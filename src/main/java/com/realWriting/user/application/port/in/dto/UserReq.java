@@ -1,4 +1,4 @@
-package com.realWriting.member.application.port.in.dto;
+package com.realWriting.user.application.port.in.dto;
 
 import lombok.*;
 
@@ -13,6 +13,10 @@ public class UserReq {
         private String nickname;
     }
 
+    @Builder
+    @AllArgsConstructor(access = AccessLevel.PRIVATE)
+    @NoArgsConstructor(access = AccessLevel.PRIVATE)
+    @Getter
     public static class LoginReq {
         private String loginId;
         private String password;

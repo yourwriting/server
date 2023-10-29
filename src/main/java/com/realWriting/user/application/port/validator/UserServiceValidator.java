@@ -1,11 +1,13 @@
-package com.realWriting.member.application.port.validator;
+package com.realWriting.user.application.port.validator;
 
 import com.realWriting.global.error.ErrorCode;
 import com.realWriting.global.error.exception.UserException;
-import com.realWriting.member.application.port.out.UserPersistencePort;
+import com.realWriting.user.application.port.out.UserPersistencePort;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
+@Slf4j
 @Service
 @RequiredArgsConstructor
 public class UserServiceValidator {
@@ -15,5 +17,6 @@ public class UserServiceValidator {
         if (userPersistencePort.existsByLoginId(loginId)) {
             throw new UserException(ErrorCode.DUPLICATED_LOGIN_ID);
         }
+        log.info("[signupValidate] 통과");
     }
 }

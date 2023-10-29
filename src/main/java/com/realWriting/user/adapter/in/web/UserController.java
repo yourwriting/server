@@ -1,9 +1,10 @@
-package com.realWriting.member.adapter.in.web;
+package com.realWriting.user.adapter.in.web;
 
+import com.realWriting.global.success.SuccessCode;
 import com.realWriting.global.success.SuccessResponse;
-import com.realWriting.member.adapter.in.web.dto.UserInput;
-import com.realWriting.member.application.port.in.UserService;
-import com.realWriting.member.application.port.out.dto.UserRes;
+import com.realWriting.user.adapter.in.web.dto.UserInput;
+import com.realWriting.user.application.port.in.UserService;
+import com.realWriting.user.application.port.out.dto.UserRes;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -11,10 +12,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import static com.realWriting.global.success.SuccessCode.USER_SIGNUP_SUCCESS;
-
 @RestController
-@RequestMapping("/api")
+@RequestMapping
 @RequiredArgsConstructor
 public class UserController {
     private final UserService userService;
@@ -22,6 +21,12 @@ public class UserController {
     @PostMapping("/user")
     public ResponseEntity<?> signup(@RequestBody UserInput.SignupInput input) {
         UserRes.SignupRes output = userService.signup(input.toReq());
-        return SuccessResponse.toResponseEntity(USER_SIGNUP_SUCCESS, output);
+        return SuccessResponse.toResponseEntity(SuccessCode.USER_SIGNUP_SUCCESS, output);
+    }
+
+    @PostMapping("/login")
+    public ResponseEntity<?> login(@RequestBody UserInput.LoginInput input) {
+        UserRes.LoginRes output = userService.login(input.toReq());
+        return SuccessResponse.toResponseEntity(SuccessCode.USER_LOGIN_SUCCESS, output);
     }
 }
