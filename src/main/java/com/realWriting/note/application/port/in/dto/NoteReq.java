@@ -30,13 +30,11 @@ public class NoteReq {
     @NoArgsConstructor(access = AccessLevel.PRIVATE)
     @Getter
     public static class ContentReq {
-        private Long userId;
         private String title;
         private String content;
 
         public Note toEntity() {
             return Note.builder()
-                    .userId(userId)
                     .title(title)
                     .content(content)
                     .build();

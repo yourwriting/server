@@ -6,6 +6,7 @@ import com.realWriting.note.application.port.in.dto.NoteReq;
 import com.realWriting.note.application.port.out.NotePersistencePort;
 import com.realWriting.note.application.port.out.dto.NoteRes;
 import com.realWriting.note.domain.Note;
+import com.realWriting.user.domain.User;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -23,8 +24,10 @@ public class NoteServiceImpl implements NoteService {
     private final NotePersistencePort notePersistencePort;
 
     @Override
-    public NoteRes.ContentRes saveNote(NoteReq.ContentReq req) {
-        return notePersistencePort.save(req.toEntity());
+    public NoteRes.ContentRes saveNote(NoteReq.ContentReq req, User user) {
+        Note savedNote = notePersistencePort.save(req.toEntity());
+        savedNote.setUser(user);
+        return NoteRes.ContentRes.of(savedNote);
     }
 
     @Transactional(readOnly = true)

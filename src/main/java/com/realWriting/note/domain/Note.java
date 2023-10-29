@@ -29,8 +29,9 @@ public class Note {
     @Lob
     private String content;
 
-    @Column(name = "USER_ID")
-    private Long userId;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "USER_ID")
+    private User user;
 
     @CreatedDate
     @Column(name = "CREATED_AT")
@@ -43,5 +44,9 @@ public class Note {
         this.title = title;
         this.content = content;
         return this;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
     }
 }
