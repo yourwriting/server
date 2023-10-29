@@ -17,6 +17,7 @@ public enum SuccessCode {
     IMAGE_UPLOAD_SUCCESS(OK, "0115", "이미지 첨부 성공"),
     /* User */
     USER_SIGNUP_SUCCESS(CREATED, "0120", "회원가입 성공"),
+    USER_LOGIN_SUCCESS(OK, "0121", "로그인 성공"),
     ;
 
     private final HttpStatus httpStatus;

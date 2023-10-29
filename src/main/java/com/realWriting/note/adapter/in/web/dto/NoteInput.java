@@ -15,9 +15,9 @@ public class NoteInput {
         @NotBlank(message = "필수 입력 값입니다.")
         private String content;
 
-        public NoteReq.ContentReq toReq() {
+        public NoteReq.ContentReq toReq(Long userId) {
             return NoteReq.ContentReq.builder()
-                    .memberId(1L)
+                    .userId(userId)
                     .title(title)
                     .content(content)
                     .build();

@@ -1,5 +1,6 @@
 package com.realWriting.note.domain;
 
+import com.realWriting.user.domain.User;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -20,13 +21,16 @@ import java.time.LocalDateTime;
 public class Note {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name="NOTE_ID")
+    @Column(name = "NOTE_ID")
     private Long id;
 
     private String title;
 
     @Lob
     private String content;
+
+    @Column(name = "USER_ID")
+    private Long userId;
 
     @CreatedDate
     @Column(name = "CREATED_AT")
