@@ -52,8 +52,8 @@ public class NoteServiceImpl implements NoteService {
 
     @Transactional(readOnly = true)
     @Override
-    public List<NoteRes.ListRes> findAll() {
-        List<Note> entities = notePersistencePort.findAll();
+    public List<NoteRes.ListRes> findAll(Long userId) {
+        List<Note> entities = notePersistencePort.findAllByUserId(userId);
         return NoteRes.ListRes.of(entities);
     }
 

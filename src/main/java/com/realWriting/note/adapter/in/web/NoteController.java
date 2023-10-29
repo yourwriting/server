@@ -47,8 +47,8 @@ public class NoteController {
     }
 
     @GetMapping("/home")
-    public ResponseEntity<?> showNotes() {
-        List<NoteRes.ListRes> output = noteService.findAll();
+    public ResponseEntity<?> showNotes(@AuthenticationPrincipal User user) {
+        List<NoteRes.ListRes> output = noteService.findAll(user.getId());
         return SuccessResponse.toResponseEntity(SHOW_NOTES_SUCCESS, output);
     }
 }

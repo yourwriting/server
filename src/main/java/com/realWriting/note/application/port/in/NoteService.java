@@ -12,6 +12,6 @@ public interface NoteService {
     NoteRes.ContentRes getNote(Long id);
     NoteRes.ContentRes updateNote(Long id, NoteReq.ContentReq req);
     void deleteNote(Long id);
-    List<NoteRes.ListRes> findAll();
+    List<NoteRes.ListRes> findAll(Long userId);
     void uploadImage(Long id, MultipartFile image) throws IOException;
 }
