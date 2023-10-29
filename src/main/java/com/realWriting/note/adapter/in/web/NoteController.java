@@ -23,7 +23,7 @@ public class NoteController {
     @PostMapping("/note")
     public ResponseEntity<?> createNote(@RequestBody NoteInput.ContentInput input,
                                         @AuthenticationPrincipal User user) throws Exception {
-        NoteRes.ContentRes output = noteService.saveNote(input.toReq(user.getId()), user);
+        NoteRes.ContentRes output = noteService.saveNote(input.toReq(), user);
         return SuccessResponse.toResponseEntity(NOTE_CREATE_SUCCESS, output);
     }
 
@@ -35,9 +35,8 @@ public class NoteController {
 
     @PutMapping("/note/{noteId}")
     public ResponseEntity<?> updateNote(@PathVariable("noteId") Long noteId,
-                                        @RequestBody NoteInput.ContentInput input,
-                                        @AuthenticationPrincipal User user) {
-        NoteRes.ContentRes output = noteService.updateNote(noteId, input.toReq(user.getId()));
+                                        @RequestBody NoteInput.ContentInput input) {
+        NoteRes.ContentRes output = noteService.updateNote(noteId, input.toReq());
         return SuccessResponse.toResponseEntity(NOTE_UPDATE_SUCCESS, output);
     }
 
