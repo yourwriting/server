@@ -82,8 +82,13 @@ public class NoteServiceImpl implements NoteService {
     @Transactional
     @Override
     public void deleteNote(Long id) {
+        // TODO userId 검증
+
         notePersistencePort.findById(id)
                         .orElseThrow(() -> new NoteException(NOTE_NOT_FOUND));
+
+        fileService.deleteNoteFileList(id);
+
         notePersistencePort.delete(id);
     }
 

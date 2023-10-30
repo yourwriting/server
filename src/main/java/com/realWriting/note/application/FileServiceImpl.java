@@ -12,6 +12,7 @@ import com.realWriting.note.application.port.out.ImagePersistencePort;
 import com.realWriting.note.application.port.out.dto.NoteRes;
 import com.realWriting.note.domain.Image;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.io.FilenameUtils;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
@@ -26,6 +27,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
+@Slf4j
 @Service
 @Transactional(readOnly = true)
 @RequiredArgsConstructor
@@ -92,7 +94,6 @@ public class FileServiceImpl implements FileService {
 
     @Override
     public void deleteNoteFileList(Long noteId) {
-        imagePersistencePort.deleteAllByNoteId(noteId);
         List<Image> imageList = imagePersistencePort.findByNoteId(noteId);
         imageList.forEach(image -> {
             deleteFile(image.getStoredFileName(), appName);
@@ -103,6 +104,7 @@ public class FileServiceImpl implements FileService {
     @Override
     public void deleteFile(String storedName, String path) {
         String objectKey = path + "/" + storedName;
+        log.info("storedName -> {}", storedName);
         if (!amazonS3.doesObjectExist(bucketName, objectKey)) {
             throw new FileException(ErrorCode.FILE_NOT_FOUND);
         }

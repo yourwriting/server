@@ -14,9 +14,11 @@ public class Image {
     @Column(name = "IMAGE_ID")
     private Long id;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.LAZY,
+            cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REMOVE})
     @JoinColumn(name = "NOTE_ID")
     private Note note;
+
     private String fileUrl;
     private String originFileName;
     private String storedFileName;
