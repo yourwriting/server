@@ -39,7 +39,6 @@ public class NoteController {
     public ResponseEntity<?> updateNote(@PathVariable("noteId") Long noteId,
                                         @RequestBody NoteInput.ContentInput input) {
 //        NoteRes.ContentRes output = noteService.updateNote(noteId, input.toReq());
-
         return SuccessResponse.toResponseEntity(NOTE_UPDATE_SUCCESS, null);
     }
 

@@ -104,7 +104,6 @@ public class FileServiceImpl implements FileService {
     @Override
     public void deleteFile(String storedName, String path) {
         String objectKey = path + "/" + storedName;
-        log.info("storedName -> {}", storedName);
         if (!amazonS3.doesObjectExist(bucketName, objectKey)) {
             throw new FileException(ErrorCode.FILE_NOT_FOUND);
         }
