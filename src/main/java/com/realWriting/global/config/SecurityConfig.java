@@ -1,6 +1,6 @@
 package com.realWriting.global.config;
 
-import com.realWriting.global.security.filter.JwtAuthenticationFilter;
+import com.realWriting.global.security.JwtAuthenticationFilter;
 import com.realWriting.global.util.JwtUtil;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;

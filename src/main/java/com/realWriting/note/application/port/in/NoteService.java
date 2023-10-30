@@ -3,9 +3,7 @@ package com.realWriting.note.application.port.in;
 import com.realWriting.note.application.port.in.dto.NoteReq;
 import com.realWriting.note.application.port.out.dto.NoteRes;
 import com.realWriting.user.domain.User;
-import org.springframework.web.multipart.MultipartFile;
 
-import java.io.IOException;
 import java.util.List;
 
 public interface NoteService {
@@ -14,5 +12,4 @@ public interface NoteService {
     NoteRes.ContentRes updateNote(Long id, NoteReq.ContentReq req);
     void deleteNote(Long id);
     List<NoteRes.ListRes> findAll(Long userId);
-    void uploadImage(Long id, MultipartFile image) throws IOException;
 }
