@@ -1,4 +1,7 @@
 spring:
+  application:
+    name: yourwriting
+
   datasource:
 #    driver-class-name: org.mariadb.jdbc.Driver
 #    url: jdbc:mariadb://real-writing-database.cfhfwm8iygtn.ap-northeast-2.rds.amazonaws.com/db?serverTimezone=UTC&characterEncoding=UTF-8
@@ -10,7 +13,7 @@ spring:
     password: 1234
   jpa:
     hibernate:
-      ddl-auto: create
+      ddl-auto: update
     show-sql: true
     format-sql: true
 
@@ -18,3 +21,18 @@ jwt:
   token:
     secret: your-writing-secret-key
     validity-seconds: 2592000 #초
+
+cloud:
+  aws:
+    credentials:
+      access-key: AKIAT373QO7SFI7IN6TM
+      secret-key: hPnzQtkrJLfFesQBUA5lS6d76Xs7P07LBEoxg3wR
+    stack.auto: false
+    s3:
+      bucket: yourwriting-bucket
+    region:
+      static: ap-northeast-2
+
+file:
+  list-max-size: 10485760 # 10MB
+  list-max-count: 1

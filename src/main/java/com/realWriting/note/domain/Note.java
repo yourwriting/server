@@ -46,7 +46,8 @@ public class Note {
         return this;
     }
 
-    public void setUser(User user) {
+    public Note setUser(User user) {
         this.user = user;
+        return this;
     }
 }

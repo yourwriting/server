@@ -1,6 +1,7 @@
 package com.realWriting.note.application.port.out.dto;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.realWriting.note.domain.Image;
 import com.realWriting.note.domain.Note;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
@@ -21,14 +22,16 @@ public class NoteRes {
         String content;
         LocalDateTime createdAt;
         LocalDateTime updatedAt;
+        List<FileRes> fileResList;
 
-        public static ContentRes of(Note entity) {
+        public static ContentRes of(Note entity, List<FileRes> fileResList) {
             return ContentRes.builder()
                     .noteId(entity.getId())
                     .title(entity.getTitle())
                     .content(entity.getContent())
                     .createdAt(entity.getCreatedAt())
                     .updatedAt(entity.getUpdatedAt())
+                    .fileResList(fileResList)
                     .build();
         }
     }
@@ -47,6 +50,20 @@ public class NoteRes {
             return entities.stream()
                     .map(e -> new ListRes(e.getId(), e.getTitle(), e.getCreatedAt(), e.getUpdatedAt()))
                     .collect(Collectors.toList());
+        }
+    }
+
+    @Getter
+    @Builder
+    public static class FileRes {
+        private String fileUrl;
+        private String originFileName;
+
+        public static FileRes of(Image image) {
+            return FileRes.builder()
+                    .fileUrl(image.getFileUrl())
+                    .originFileName(image.getOriginFileName())
+                    .build();
         }
     }
 }

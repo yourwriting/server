@@ -11,7 +11,7 @@ public class NoteReq {
     @AllArgsConstructor(access = AccessLevel.PRIVATE)
     @NoArgsConstructor(access = AccessLevel.PRIVATE)
     @Getter
-    public static class FileReq {
+    public static class CreateReq {
         private Long memberId;
         private String title;
         private String content;
@@ -32,6 +32,7 @@ public class NoteReq {
     public static class ContentReq {
         private String title;
         private String content;
+        private List<MultipartFile> files;
 
         public Note toEntity() {
             return Note.builder()

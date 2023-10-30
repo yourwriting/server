@@ -9,6 +9,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 
@@ -21,9 +22,10 @@ public class NoteController {
     private final NoteService noteService;
 
     @PostMapping("/note")
-    public ResponseEntity<?> createNote(@RequestBody NoteInput.ContentInput input,
+    public ResponseEntity<?> createNote(@RequestPart(value = "input") NoteInput.ContentInput input,
+                                        @RequestPart(value = "files", required = false) List<MultipartFile> files,
                                         @AuthenticationPrincipal User user) throws Exception {
-        NoteRes.ContentRes output = noteService.saveNote(input.toReq(), user);
+        NoteRes.ContentRes output = noteService.saveNote(input.toReq(files), user);
         return SuccessResponse.toResponseEntity(NOTE_CREATE_SUCCESS, output);
     }
 
@@ -36,8 +38,9 @@ public class NoteController {
     @PutMapping("/note/{noteId}")
     public ResponseEntity<?> updateNote(@PathVariable("noteId") Long noteId,
                                         @RequestBody NoteInput.ContentInput input) {
-        NoteRes.ContentRes output = noteService.updateNote(noteId, input.toReq());
-        return SuccessResponse.toResponseEntity(NOTE_UPDATE_SUCCESS, output);
+//        NoteRes.ContentRes output = noteService.updateNote(noteId, input.toReq());
+
+        return SuccessResponse.toResponseEntity(NOTE_UPDATE_SUCCESS, null);
     }
 
     @DeleteMapping("/note/{noteId}")

@@ -37,7 +37,7 @@ public class NotePersistenceAdapter implements NotePersistencePort {
     }
 
     @Override
-    public ContentRes update(Note entity) {
-        return ContentRes.of(noteRepository.save(entity));
+    public Note update(Note entity) {
+        return noteRepository.save(entity);
     }
 }

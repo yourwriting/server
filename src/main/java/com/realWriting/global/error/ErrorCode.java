@@ -9,11 +9,13 @@ import static org.springframework.http.HttpStatus.*;
 public enum ErrorCode {
     SERVER_ERROR(INTERNAL_SERVER_ERROR, "00001", "서버 내부 에러"),
     /* Note */
-    NOTE_NOT_FOUND(BAD_REQUEST, "01101", "존재하지 않는 노트 ID"),
+    NOTE_NOT_FOUND(NOT_FOUND, "01101", "존재하지 않는 노트 ID"),
     /* Member */
     DUPLICATED_LOGIN_ID(BAD_REQUEST, "01201", "이미 가입된 아이디입니다."),
-    USER_NOT_FOUND(BAD_REQUEST, "01202", "존재하지 않는 회원입니다."),
+    USER_NOT_FOUND(NOT_FOUND, "01202", "존재하지 않는 회원입니다."),
     WRONG_PASSWORD(BAD_REQUEST, "01203", "비밀번호가 일치하지 않습니다."),
+    /* File */
+    FILE_NOT_FOUND(NOT_FOUND, "01301", "파일을 찾을 수 없습니다."),
     ;
 
     private final HttpStatus httpStatus;

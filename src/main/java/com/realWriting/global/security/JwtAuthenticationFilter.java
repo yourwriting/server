@@ -1,4 +1,4 @@
-package com.realWriting.global.security.filter;
+package com.realWriting.global.security;
 
 import com.realWriting.global.util.JwtUtil;
 import jakarta.servlet.FilterChain;
