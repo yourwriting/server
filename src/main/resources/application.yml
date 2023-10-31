@@ -3,14 +3,14 @@ spring:
     name: yourwriting
 
   datasource:
-#    driver-class-name: org.mariadb.jdbc.Driver
-#    url: jdbc:mariadb://real-writing-database.cfhfwm8iygtn.ap-northeast-2.rds.amazonaws.com/db?serverTimezone=UTC&characterEncoding=UTF-8
-#    username: g16rim
-#    password: kr334404
     driver-class-name: org.mariadb.jdbc.Driver
-    url: jdbc:mariadb://localhost:3306/realWriting?serverTimezone=UTC&characterEncoding=UTF-8
-    username: root
-    password: 1234
+    url: jdbc:mariadb://yw-database.c8cwxhg9hdfa.ap-northeast-2.rds.amazonaws.com/yw?serverTimezone=UTC&characterEncoding=UTF-8
+    username: g16rim
+    password: kr334404
+#    driver-class-name: org.mariadb.jdbc.Driver
+#    url: jdbc:mariadb://localhost:3306/realWriting?serverTimezone=UTC&characterEncoding=UTF-8
+#    username: root
+#    password: 1234
   jpa:
     hibernate:
       ddl-auto: update
