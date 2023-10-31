@@ -23,9 +23,8 @@ public class NoteController {
 
     @PostMapping("/note")
     public ResponseEntity<?> createNote(@RequestPart(value = "input") NoteInput.ContentInput input,
-                                        @RequestPart(value = "files", required = false) List<MultipartFile> files,
                                         @AuthenticationPrincipal User user) throws Exception {
-        NoteRes.ContentRes output = noteService.saveNote(input.toReq(files), user);
+        NoteRes.ContentRes output = noteService.saveNote(input.toReq(null), user);
         return SuccessResponse.toResponseEntity(NOTE_CREATE_SUCCESS, output);
     }
 
@@ -37,9 +36,10 @@ public class NoteController {
 
     @PutMapping("/note/{noteId}")
     public ResponseEntity<?> updateNote(@PathVariable("noteId") Long noteId,
-                                        @RequestBody NoteInput.ContentInput input) {
-//        NoteRes.ContentRes output = noteService.updateNote(noteId, input.toReq());
-        return SuccessResponse.toResponseEntity(NOTE_UPDATE_SUCCESS, null);
+                                        @RequestBody NoteInput.ContentInput input,
+                                        @RequestPart(value = "files", required = false) List<MultipartFile> files) {
+        NoteRes.ContentRes output = noteService.updateNote(noteId, input.toReq(files));
+        return SuccessResponse.toResponseEntity(NOTE_UPDATE_SUCCESS, output);
     }
 
     @DeleteMapping("/note/{noteId}")

@@ -72,11 +72,17 @@ public class NoteServiceImpl implements NoteService {
     @Transactional
     @Override
     public NoteRes.ContentRes updateNote(Long id, NoteReq.ContentReq req) {
-        Note entity = notePersistencePort.findById(id)
+        Note updatedNote = notePersistencePort.findById(id)
                 .orElseThrow(() -> new NoteException(NOTE_NOT_FOUND))
                 .update(req.getTitle(), req.getContent());
-        entity = notePersistencePort.update(entity);
-        return NoteRes.ContentRes.of(entity, null);
+
+        if (req.getFiles() != null) {
+            uploadFiles(updatedNote, req.getFiles());
+        }
+
+        List<NoteRes.FileRes> fileResList = fileService.getNoteFileList(updatedNote.getId());
+
+        return NoteRes.ContentRes.of(updatedNote, fileResList);
     }
 
     @Transactional

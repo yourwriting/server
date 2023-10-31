@@ -20,7 +20,7 @@ spring:
 jwt:
   token:
     secret: your-writing-secret-key
-    validity-seconds: 2592000 #초
+    validity-seconds: 25920000000 #초
 
 cloud:
   aws:
