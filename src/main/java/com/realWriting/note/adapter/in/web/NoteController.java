@@ -22,7 +22,7 @@ public class NoteController {
     private final NoteService noteService;
 
     @PostMapping("/note")
-    public ResponseEntity<?> createNote(@RequestPart(value = "input") NoteInput.ContentInput input,
+    public ResponseEntity<?> createNote(@RequestBody NoteInput.ContentInput input,
                                         @AuthenticationPrincipal User user) throws Exception {
         NoteRes.ContentRes output = noteService.saveNote(input.toReq(null), user);
         return SuccessResponse.toResponseEntity(NOTE_CREATE_SUCCESS, output);

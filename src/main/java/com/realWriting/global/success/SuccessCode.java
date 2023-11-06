@@ -18,6 +18,7 @@ public enum SuccessCode {
     /* User */
     USER_SIGNUP_SUCCESS(CREATED, "0120", "회원가입 성공"),
     USER_LOGIN_SUCCESS(OK, "0121", "로그인 성공"),
+    USER_FIND_PASSWORD(OK, "0122", "비밀번호 찾기"),
     ;
 
     private final HttpStatus httpStatus;
