@@ -4,6 +4,7 @@ import com.realWriting.note.adapter.out.persistence.repository.NoteRepository;
 import com.realWriting.note.application.port.out.NotePersistencePort;
 import com.realWriting.note.domain.Note;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
@@ -33,7 +34,7 @@ public class NotePersistenceAdapter implements NotePersistencePort {
 
     @Override
     public List<Note> findAllByUserId(Long userId) {
-        return noteRepository.findAllByUserId(userId);
+        return noteRepository.findAllByUserId(userId, Sort.by(Sort.Order.desc("id")));
     }
 
     @Override
