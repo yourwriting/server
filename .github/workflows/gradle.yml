@@ -1,4 +1,4 @@
-name: Build with Gradle
+name: Java CI with Gradle
 
 run-name: New Push
 
@@ -6,15 +6,11 @@ on:
   push:
     branches: [ "main" ]
 
-env:
-  AWS_REGION: ap-northeast-2
-  AWS_S3_BUCKET: yw-cicd-bucket
-  AWS_CODE_DEPLOY_APPLICATION: yw-cicd
-  AWS_CODE_DEPLOY_GROUP: yw-cicd-group
+permissions:
+  contents: read
 
 jobs:
   build-with-gradle:
-
     runs-on: ubuntu-20.04
 
     steps:
@@ -26,21 +22,48 @@ jobs:
         java-version: '17'
         distribution: 'temurin'
 
+    - name: Make application-prod.yml
+      run: |
+        cd ./src/main/resources
+        touch ./application-prod.yml
+        echo "${{ secrets.APPLICATION_PROD }}" > ./application-prod.yml
+
     - name: Grant execute permission for gradlew
       run: chmod +x gradlew
 
     - name: Build with Gradle
-      run: ./gradlew clean build --exclude-task test
+      run: ./gradlew build -x test
 
-    - name: AWS credential 설정
-      uses: aws-actions/configure-aws-credentials@v1
+    - name: Docker build
+      run: |
+        docker login -u ${{ secrets.DOCKER_USERNAME }} -p ${{ secrets.DOCKER_PASSWORD }}
+        docker build -t app .
+        docker tag app ${{ secrets.DOCKER_USERNAME }}/yourwriting:latest
+        docker push ${{ secrets.DOCKER_USERNAME }}/youwriting:latest
+
+    - name: Deploy
+      uses: g16rim/ssh-action@master
       with:
-        aws-region: ${{ env.AWS_REGION }}
-        aws-access-key-id: ${{ secrets.CICD_ACCESS_KEY_ID }}
-        aws-secret-access-key: ${{ secrets.CICD_SECRET_ACCESS_KEY }}
+        host: ${{ secrets.HOST }} # EC2 인스턴스 퍼블릭 DNS
+        username: ubuntu
+        key: ${{ secrets.PRIVATE_KEY }} # pem 키
+        # 도커 작업
+        script: |
+          docker pull ${{ secrets.DOCKER_USERNAME }}/yourwriting:latest
+          docker stop $(docker ps -a -q)
+          docker run -d --log-driver=syslog -p 8080:8080 -e SPRING_PROFILES_ACTIVE=prod ${{ secrets.DOCKER_USERNAME }}/gomaoom:latest
+          docker rm $(docker ps --filter 'status=exited' -a -q)
+          docker image prune -a -f
 
-    - name: S3로 upload
-      run: aws deploy push --application-name ${{ env.AWS_CODE_DEPLOY_APPLICATION }} --ignore-hidden-files --s3-location s3://$AWS_S3_BUCKET/yw-cicd/$GITHUB_SHA.zip --source .
-
-    - name: EC2에 배포
-      run: aws deploy create-deployment --application-name ${{ env.AWS_CODE_DEPLOY_APPLICATION }} --deployment-config-name CodeDeployDefault.AllAtOnce --deployment-group-name ${{ env.AWS_CODE_DEPLOY_GROUP }} --s3-location bucket=$AWS_S3_BUCKET,key=yw-cicd/$GITHUB_SHA.zip,bundleType=zip
+#    - name: AWS credential 설정
+#      uses: aws-actions/configure-aws-credentials@v1
+#      with:
+#        aws-region: ${{ env.AWS_REGION }}
+#        aws-access-key-id: ${{ secrets.CICD_ACCESS_KEY_ID }}
+#        aws-secret-access-key: ${{ secrets.CICD_SECRET_ACCESS_KEY }}
+#
+#    - name: S3로 upload
+#      run: aws deploy push --application-name ${{ env.AWS_CODE_DEPLOY_APPLICATION }} --ignore-hidden-files --s3-location s3://$AWS_S3_BUCKET/yw-cicd/$GITHUB_SHA.zip --source .
+#
+#    - name: EC2에 배포
+#      run: aws deploy create-deployment --application-name ${{ env.AWS_CODE_DEPLOY_APPLICATION }} --deployment-config-name CodeDeployDefault.AllAtOnce --deployment-group-name ${{ env.AWS_CODE_DEPLOY_GROUP }} --s3-location bucket=$AWS_S3_BUCKET,key=yw-cicd/$GITHUB_SHA.zip,bundleType=zip
