@@ -36,7 +36,7 @@ public class NoteController {
 
     @PutMapping("/note/{noteId}")
     public ResponseEntity<?> updateNote(@PathVariable("noteId") Long noteId,
-                                        @RequestBody NoteInput.ContentInput input,
+                                        @RequestPart(value = "input") NoteInput.ContentInput input,
                                         @RequestPart(value = "files", required = false) List<MultipartFile> files) {
         NoteRes.ContentRes output = noteService.updateNote(noteId, input.toReq(files));
         return SuccessResponse.toResponseEntity(NOTE_UPDATE_SUCCESS, output);
