@@ -77,6 +77,7 @@ public class NoteServiceImpl implements NoteService {
                 .update(req.getTitle(), req.getContent());
 
         if (req.getFiles() != null) {
+            deleteNote(id);
             uploadFiles(updatedNote, req.getFiles());
         }
 

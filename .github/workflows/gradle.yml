@@ -54,16 +54,3 @@ jobs:
           docker run -d --log-driver=syslog -p 8080:8080 -e SPRING_PROFILES_ACTIVE=prod ${{ secrets.DOCKER_USERNAME }}/yourwriting:latest
           docker rm $(docker ps --filter 'status=exited' -a -q)
           docker image prune -a -f
-
-#    - name: AWS credential 설정
-#      uses: aws-actions/configure-aws-credentials@v1
-#      with:
-#        aws-region: ${{ env.AWS_REGION }}
-#        aws-access-key-id: ${{ secrets.CICD_ACCESS_KEY_ID }}
-#        aws-secret-access-key: ${{ secrets.CICD_SECRET_ACCESS_KEY }}
-#
-#    - name: S3로 upload
-#      run: aws deploy push --application-name ${{ env.AWS_CODE_DEPLOY_APPLICATION }} --ignore-hidden-files --s3-location s3://$AWS_S3_BUCKET/yw-cicd/$GITHUB_SHA.zip --source .
-#
-#    - name: EC2에 배포
-#      run: aws deploy create-deployment --application-name ${{ env.AWS_CODE_DEPLOY_APPLICATION }} --deployment-config-name CodeDeployDefault.AllAtOnce --deployment-group-name ${{ env.AWS_CODE_DEPLOY_GROUP }} --s3-location bucket=$AWS_S3_BUCKET,key=yw-cicd/$GITHUB_SHA.zip,bundleType=zip
