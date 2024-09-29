@@ -1,4 +1,4 @@
-# yourwriting-frontend
+# yourwriting
 'yourwriting' is note application that can generate your own font and use it on this application. 
 
 ### Service
